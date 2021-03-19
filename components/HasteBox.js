@@ -1,9 +1,10 @@
 import styles from '../styles/HasteBox.module.css';
 import Link from 'next/link';
 import classnames from 'classnames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import getButtons from '../components/buttons';
+import mousetrap from 'mousetrap';
+import hljs from 'highlight.js';
 
 export default function HasteBox({
   mode /* "edit" or "view" */,
@@ -12,7 +13,84 @@ export default function HasteBox({
   id,
 }) {
   const router = useRouter();
-  const buttons = getButtons(mode, setText, text, id, router);
+  const buttons = [
+    {
+      name: 'Save',
+      class: styles.saveButton,
+      shortcut: 'control + s',
+      enabled: mode == 'edit',
+      onClick: async () => {
+        router.push(
+          '/' +
+            (
+              await (
+                await fetch('/api/documents', {
+                  method: 'POST',
+                  body: JSON.stringify({ text }),
+                  headers: { 'Content-Type': 'application/json' },
+                })
+              ).json()
+            ).key +
+            '.' +
+            (hljs.highlightAuto(text).language || 'txt')
+        );
+      },
+    },
+    {
+      name: 'New',
+      class: styles.newButton,
+      shortcut: 'control + n',
+      enabled: true,
+      onClick: () => {
+        if (mode == 'edit') setText('');
+        else router.push('/');
+      },
+    },
+    {
+      name: 'Duplicate & Edit',
+      class: styles.editButton,
+      shortcut: 'control + d',
+      enabled: mode == 'view',
+      onClick: () => {
+        router.push(`/?text=${encodeURIComponent(text)}`, '/');
+      },
+    },
+    {
+      name: 'Just Text',
+      class: styles.rawButton,
+      shortcut: 'control + shift + r',
+      enabled: mode == 'view',
+      onClick: () => {
+        router.push('/raw/' + id);
+      },
+    },
+    {
+      name: 'Twitter',
+      class: styles.tweetButton,
+      shortcut: 'control + shift + t',
+      enabled: mode == 'view',
+      onClick: () => {
+        window.open(
+          'https://twitter.com/share?url=' + encodeURI(window.location.href)
+        );
+      },
+    },
+  ];
+
+  useEffect(() => {
+    for (const button of buttons)
+      mousetrap.bind(
+        button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', ''),
+        (e) => {
+          if (button.enabled) button.onClick();
+          return false;
+        }
+      );
+
+    return function cleanup() {
+      for (const button of buttons) mousetrap.unbind(button.shortcut);
+    };
+  });
 
   const [help, setHelp] = useState(undefined);
   return (

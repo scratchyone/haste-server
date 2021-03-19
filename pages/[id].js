@@ -3,25 +3,12 @@ import styles from '../styles/Main.module.css';
 import HasteBox from '../components/HasteBox';
 import { useState } from 'react';
 import { PrismaClient } from '@prisma/client';
-import Highlight from 'react-highlight';
 const prisma = new PrismaClient();
-import { useHotkeys } from 'react-hotkeys-hook';
-import getButtons from '../components/buttons';
 import { useRouter } from 'next/router';
 import hljs from 'highlight.js';
 
 export default function Viewer(props) {
   const router = useRouter();
-  const buttons = getButtons('view', null, props.text, props.id, router);
-  for (const button of buttons)
-    useHotkeys(
-      button.shortcut,
-      (e) => {
-        e.preventDefault();
-        button.enabled && button.onClick();
-      },
-      { enableOnTags: 'TEXTAREA' }
-    );
 
   if (router.query.id == 'noscript.md' && typeof window != 'undefined')
     router.push('/');
