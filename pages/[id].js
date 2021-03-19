@@ -36,14 +36,40 @@ export default function Viewer(props) {
     </div>
   );
 }
+import path from 'path';
+import { promises as fs } from 'fs';
 
 export async function getServerSideProps(context) {
+  const presetsDirectory = path.join(process.cwd(), 'presets');
+  const filenames = await fs.readdir(presetsDirectory);
+
   const realId = context.params.id.split('.')[0];
+  if (filenames.includes(context.params.id))
+    return {
+      props: {
+        text: await fs.readFile(
+          path.join(presetsDirectory, context.params.id),
+          'utf8'
+        ),
+        id: realId,
+        ...(context.params.id.split('.')[1]
+          ? { extension: context.params.id.split('.')[1] }
+          : {}),
+      },
+    };
   const props = await prisma.document.findFirst({
     where: {
       id: realId,
     },
   });
+  if (props === null)
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/404.md',
+      },
+    };
+
   return {
     props: {
       ...props,
