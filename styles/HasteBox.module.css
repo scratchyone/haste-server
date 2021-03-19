@@ -1,0 +1,84 @@
+.wrapper {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: +1000;
+  display: flex;
+  flex-direction: column;
+}
+.logoWrapper {
+  padding: 2px;
+  text-align: center;
+  background: var(--box-top-color);
+}
+.logo {
+  display: inline-block;
+  mask: url(/logo.png) no-repeat center;
+  width: 126px;
+  height: 42px;
+  background-color: var(--logo-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.logo:hover {
+  background-color: white;
+}
+.buttonWrapper {
+  padding-right: 5px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--box-bottom-color);
+}
+.button {
+  background-color: var(--button-color);
+  display: inline-block;
+  padding: 16px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  height: 35px;
+  width: 20px;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.button.disabled {
+  background-color: var(--button-disabled-color);
+  cursor: default;
+}
+.button:hover:not(.disabled) {
+  background-color: white;
+}
+.saveButton {
+  mask: url(/icons/save.png) no-repeat center;
+}
+.newButton {
+  mask: url(/icons/new.png) no-repeat center;
+}
+.editButton {
+  mask: url(/icons/edit.png) no-repeat center;
+}
+.rawButton {
+  mask: url(/icons/raw.png) no-repeat center;
+}
+.tweetButton {
+  mask: url(/icons/tweet.png) no-repeat center;
+}
+.buttonHelpWrapper {
+  background-color: var(--button-help-background-color);
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.buttonHelpName {
+  color: white;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+.buttonHelpShortcut {
+  font-weight: 400;
+  font-family: 'Helvetica', sans-serif;
+  color: var(--button-shortcut-color);
+  font-size: 12px;
+}
