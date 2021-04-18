@@ -88,7 +88,10 @@ export default function HasteBox({
       );
 
     return function cleanup() {
-      for (const button of buttons) mousetrap.unbind(button.shortcut);
+      for (const button of buttons)
+        mousetrap.unbind(
+          button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', '')
+        );
     };
   });
 
