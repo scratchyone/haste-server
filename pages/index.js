@@ -15,7 +15,7 @@ export default function Editor() {
         <meta name="robots" content="noindex,nofollow" />
         <title>hastebin</title>
         <noscript>
-          <meta http-equiv="refresh" content="0;url=/noscript.md" />
+          <meta httpEquiv="refresh" content="0;url=/noscript.md" />
         </noscript>
       </Head>
       <HasteBox mode={'edit'} text={text} setText={setText} />

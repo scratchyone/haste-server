@@ -15,4 +15,5 @@ export async function getServerSideProps(ctx) {
   ctx.res.setHeader('Content-type', 'text/plain');
   ctx.res.write(props.text);
   ctx.res.end();
+  return { props: {} };
 }
