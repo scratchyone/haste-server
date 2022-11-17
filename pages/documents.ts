@@ -35,7 +35,7 @@ export async function getServerSideProps(ctx: {
 }) {
   const { req, res } = ctx;
   if ((req as any).method === 'POST') {
-    let bodyPromise = new Promise((resolve, reject) => {
+    let bodyPromise: Promise<string> = new Promise((resolve, reject) => {
       let body = '';
       req.on('data', function (data) {
         body += data;
