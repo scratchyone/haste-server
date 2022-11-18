@@ -13,6 +13,7 @@ export async function getServerSideProps(ctx) {
     },
   });
   ctx.res.setHeader('Content-type', 'text/plain');
+  ctx.res.setHeader('X-Robots-Tag', 'noindex');
   ctx.res.write(props.text);
   ctx.res.end();
   return { props: {} };
