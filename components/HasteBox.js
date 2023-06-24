@@ -61,7 +61,8 @@ export default function HasteBox({
       shortcut: 'control + shift + r',
       enabled: mode == 'view',
       onClick: () => {
-        router.push('/raw/' + id);
+        // The raw page is not rendered by Next.js, so using a router breaks it as it must be rendered as raw text server side.
+        location.href = '/raw/' + id;
       },
     },
     {
