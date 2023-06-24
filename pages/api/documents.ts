@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../components/db';
+import { createPaste } from '../../lib/createPaste';
 
 const randOf = (collection) => {
   return () => {
@@ -30,12 +31,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if ((req as any).method === 'POST') {
-    const id = new PhoneticKeyGenerator().createKey(10);
-    const result = await prisma.document.create({
-      data: {
-        id,
-        text: req.body.text,
-      },
+    let result = await createPaste({
+      text: req.body.text,
     });
     res.status(200).json({ key: result.id });
   } else {

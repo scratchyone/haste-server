@@ -7,7 +7,8 @@ import mousetrap from 'mousetrap';
 import hljs from 'highlight.js';
 
 export default function HasteBox({
-  mode /* "edit" or "view" */,
+  mode /* "edit" or "view" or "other" */,
+  admin,
   setText,
   text,
   id,
@@ -42,7 +43,7 @@ export default function HasteBox({
       shortcut: 'control + n',
       enabled: true,
       onClick: () => {
-        if (mode == 'edit') setText('');
+        if (mode != 'view') setText('');
         else router.push('/');
       },
     },

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../components/db';
+import { createPaste } from '../lib/createPaste';
 
 const randOf = (collection) => {
   return () => {
@@ -45,13 +46,8 @@ export async function getServerSideProps(ctx: {
       });
     });
     let body = await bodyPromise;
-    console.log(body);
-    const id = new PhoneticKeyGenerator().createKey(10);
-    const result = await prisma.document.create({
-      data: {
-        id,
-        text: body,
-      },
+    let result = await createPaste({
+      text: body,
     });
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write(JSON.stringify({ key: result.id }));

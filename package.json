@@ -9,14 +9,19 @@
   },
   "dependencies": {
     "@prisma/client": "^4.6.1",
+    "bcrypt": "^5.1.0",
     "classnames": "^2.3.2",
     "highlight.js": "^11.6.0",
+    "js-cookie": "^3.0.1",
     "mousetrap": "^1.6.5",
     "next": "^13.0.3",
+    "prompts": "^2.4.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "prisma": "^4.6.1",

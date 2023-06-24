@@ -15,22 +15,6 @@ export default function Viewer(props) {
 
   return (
     <div>
-      <Head>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>hastebin</title>
-        <noscript>
-          <style>
-            {`.hastebutton {
-                background-color: var(--button-disabled-color) !important;
-                cursor: default !important;
-              }
-              .logo:hover {
-                background-color: var(--logo-color) !important;
-                cursor: default !important;
-              }`}
-          </style>
-        </noscript>
-      </Head>
       <HasteBox mode={'view'} text={props.text} id={props.id} />
       <div className={styles.codeWrapper}>
         <div className={styles.lineNumbers}>

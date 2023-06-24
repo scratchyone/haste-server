@@ -23,11 +23,13 @@ pastes.
 ## Open Source
 
 Haste can easily be installed behind your network, and it's all open source!
+This distribution of hastebin is a Next.JS reimplementation, with a theme based on One Dark UI.
 
 - [haste-client](https://github.com/seejohnrun/haste-client)
-- [haste-server](https://github.com/seejohnrun/haste-server)
+- [haste-server](https://github.com/scratchyone/hastebin-react)
 
 ## Author
 
-Code by John Crepezzi <john.crepezzi@gmail.com>
+Original Code by John Crepezzi <john.crepezzi@gmail.com>
+Reimplementation by Rachel <https://github.com/scratchyone>
 Key Design by Brian Dawson <bridawson@gmail.com>

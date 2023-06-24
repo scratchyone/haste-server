@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 data.db3
+data.db3-journal
