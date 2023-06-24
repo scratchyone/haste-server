@@ -11,6 +11,21 @@ generator client {
 }
 
 model Document {
-  id   String @id
-  text String
+  id        String   @id
+  text      String
+  timestamp DateTime @default(now())
+}
+
+model User {
+  email    String    @id
+  hash     String
+  admin    Boolean   @default(false)
+  sessions Session[]
+}
+
+model Session {
+  id      String   @id @default(uuid())
+  email   String
+  user    User     @relation(fields: [email], references: [email], onDelete: Cascade)
+  expires DateTime
 }

@@ -1,0 +1,20 @@
+.input {
+  border: none;
+  font-family: monospace;
+  border-radius: 3px;
+  outline: none;
+  background-color: transparent;
+  background-color: #3b3f48;
+  color: white;
+  margin: -2px;
+}
+.button {
+  color: #61aeee;
+  background: transparent;
+  font-family: monospace;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  margin: 0;
+}

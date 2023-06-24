@@ -11,13 +11,6 @@ export default function Editor() {
 
   return (
     <div>
-      <Head>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>hastebin</title>
-        <noscript>
-          <meta httpEquiv="refresh" content="0;url=/noscript.md" />
-        </noscript>
-      </Head>
       <HasteBox mode={'edit'} text={text} setText={setText} />
       <div className={styles.codeWrapper}>
         <div className={styles.lineNumbers}>{'>'}</div>

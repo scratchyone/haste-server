@@ -34,7 +34,9 @@ export interface DocumentCreationDetails {
   text: string;
 }
 
-export async function create(data: DocumentCreationDetails): Promise<Document> {
+export async function createPaste(
+  data: DocumentCreationDetails
+): Promise<Document> {
   const id = new PhoneticKeyGenerator().createKey(10);
   const result = await prisma.document.create({
     data: {

@@ -7,7 +7,8 @@ import mousetrap from 'mousetrap';
 import hljs from 'highlight.js';
 
 export default function HasteBox({
-  mode /* "edit" or "view" */,
+  mode /* "edit" or "view" or "other" */,
+  admin,
   setText,
   text,
   id,
@@ -76,10 +77,22 @@ export default function HasteBox({
         );
       },
     },
+    {
+      name: 'Delete',
+      class: styles.deleteButton,
+      shortcut: null,
+      enabled: mode == 'view' && admin,
+      onClick: async () => {
+        const resp = await fetch('/api/admin/pastes/' + id, {
+          method: 'DELETE',
+        });
+        if (resp.status == 200) router.push('/admin');
+      },
+    },
   ];
 
   useEffect(() => {
-    for (const button of buttons) {
+    for (const button of buttons.filter((button) => button.shortcut)) {
       mousetrap.bind(
         button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', ''),
         (e) => {
@@ -96,7 +109,7 @@ export default function HasteBox({
       );
     }
     return function cleanup() {
-      for (const button of buttons) {
+      for (const button of buttons.filter((button) => button.shortcut)) {
         mousetrap.unbind(
           button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', '')
         );

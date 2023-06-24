@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Main.module.css';
 import HasteBox from '../components/HasteBox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 import { useRouter } from 'next/router';
@@ -9,29 +9,21 @@ import hljs from 'highlight.js';
 
 export default function Viewer(props) {
   const router = useRouter();
-
+  // If session cookie exists
+  const [admin, setAdmin] = useState(false);
+  useEffect(() => {
+    setAdmin(
+      document.cookie
+        .split(';')
+        .some((cookie) => cookie.trim().startsWith('session='))
+    );
+  }, []);
   if (router.query.id == 'noscript.md' && typeof window != 'undefined')
     router.push('/');
 
   return (
     <div>
-      <Head>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>hastebin</title>
-        <noscript>
-          <style>
-            {`.hastebutton {
-                background-color: var(--button-disabled-color) !important;
-                cursor: default !important;
-              }
-              .logo:hover {
-                background-color: var(--logo-color) !important;
-                cursor: default !important;
-              }`}
-          </style>
-        </noscript>
-      </Head>
-      <HasteBox mode={'view'} text={props.text} id={props.id} />
+      <HasteBox mode={'view'} admin={admin} text={props.text} id={props.id} />
       <div className={styles.codeWrapper}>
         <div className={styles.lineNumbers}>
           {props.text.split('\n').map((_, index) => (
@@ -88,6 +80,10 @@ export async function getServerSideProps(context) {
   const props = await prisma.document.findFirst({
     where: {
       id: realId,
+    },
+    select: {
+      text: true,
+      id: true,
     },
   });
   if (props === null)

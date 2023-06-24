@@ -64,6 +64,9 @@
 .tweetButton {
   mask: url(/icons/tweet.png) no-repeat center;
 }
+.deleteButton {
+  mask: url(/icons/delete.svg) no-repeat center;
+}
 .buttonHelpWrapper {
   background-color: var(--button-help-background-color);
   padding: 10px;
