@@ -79,7 +79,7 @@ export default function HasteBox({
   ];
 
   useEffect(() => {
-    for (const button of buttons)
+    for (const button of buttons) {
       mousetrap.bind(
         button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', ''),
         (e) => {
@@ -87,12 +87,23 @@ export default function HasteBox({
           return false;
         }
       );
-
+      mousetrap.bind(
+        button.shortcut.replaceAll('control', 'command').replaceAll(' ', ''),
+        (e) => {
+          if (button.enabled) button.onClick();
+          return false;
+        }
+      );
+    }
     return function cleanup() {
-      for (const button of buttons)
+      for (const button of buttons) {
         mousetrap.unbind(
           button.shortcut.replaceAll('control', 'ctrl').replaceAll(' ', '')
         );
+        mousetrap.unbind(
+          button.shortcut.replaceAll('control', 'command').replaceAll(' ', '')
+        );
+      }
     };
   });
 
