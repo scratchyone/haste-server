@@ -11,6 +11,14 @@ export default function Editor() {
 
   return (
     <div>
+      <Head>
+        <meta property="og:title" content="create a paste on hastebinz" />
+        <meta property="og:site_name" content="hastebin" />
+        <meta
+          property="og:description"
+          content="hastebin is the prettiest, easiest to use pastebin ever made"
+        />
+      </Head>
       <HasteBox mode={'edit'} text={text} setText={setText} />
       <div className={styles.codeWrapper}>
         <div className={styles.lineNumbers}>{'>'}</div>

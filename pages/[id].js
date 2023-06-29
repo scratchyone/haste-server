@@ -23,6 +23,18 @@ export default function Viewer(props) {
 
   return (
     <div>
+      <Head>
+        <meta property="og:title" content="a paste on hastebin" />
+        <meta property="og:site_name" content="hastebin" />
+        <meta
+          property="og:description"
+          content={
+            props.text.length > 100
+              ? props.text.slice(0, 100) + '...'
+              : props.text
+          }
+        />
+      </Head>
       <HasteBox mode={'view'} admin={admin} text={props.text} id={props.id} />
       <div className={styles.codeWrapper}>
         <div className={styles.lineNumbers}>
